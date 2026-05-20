@@ -668,42 +668,6 @@ body {
   box-shadow: 0 0 10px #FF8FA3 !important;
 }
 
-/* Easter egg ticker (7 cliques no logo G♀) */
-.easter-ticker {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  z-index: 700;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, rgba(40, 25, 70, 0.96), rgba(25, 15, 45, 0.96));
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(167, 139, 250, 0.4);
-  border-radius: 100px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  color: #FFFFFF;
-  letter-spacing: -0.01em;
-  box-shadow: 0 12px 40px rgba(167, 139, 250, 0.32), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  opacity: 0;
-  pointer-events: none;
-  max-width: calc(100vw - 32px);
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.easter-ticker.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-@media (max-width: 480px) {
-  .easter-ticker { font-size: 13px; padding: 12px 18px; }
-}
-
 /* Botão de reset do calendário de prescrições */
 .prescricoes-reset {
   background: transparent;
@@ -3554,9 +3518,9 @@ body[data-tema="coral"] { --tema-cor: 255, 100, 100; }
   100% { opacity: 0; transform: translate(var(--vx, 0), var(--vy, -100px)) rotate(720deg) scale(0.4); }
 }
 
-/* ============ AGENDA SEMANAL ============ */
+/* ============ AGENDA SEMANAL — MOBILE FIRST ============ */
 .agenda-hero {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   padding: 16px;
   background: rgba(255,255,255,0.025);
   border: 1px solid rgba(255,255,255,0.06);
@@ -3569,28 +3533,30 @@ body[data-tema="coral"] { --tema-cor: 255, 100, 100; }
   margin-bottom: 14px;
 }
 .agenda-saudacao-label {
-  font-size: 30px;
+  font-size: 32px;
   line-height: 1;
   animation: saudacao-float 3s ease-in-out infinite;
+  flex-shrink: 0;
 }
 @keyframes saudacao-float {
-  0%, 100% { transform: rotate(-6deg) scale(1); }
-  50% { transform: rotate(6deg) scale(1.08); }
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.1); }
 }
 .agenda-saudacao-titulo {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 .agenda-saudacao-sub {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 .agenda-seletor {
   display: flex;
@@ -3601,259 +3567,259 @@ body[data-tema="coral"] { --tema-cor: 255, 100, 100; }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 8px 13px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border-base);
+  padding: 9px 14px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 100px;
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.agenda-seletor-btn:hover {
-  background: rgba(255,255,255,0.06);
-  color: var(--text-primary);
-  border-color: rgba(255,255,255,0.18);
-}
+.agenda-seletor-btn:active { transform: scale(0.97); }
 .agenda-seletor-btn.active {
-  background: rgba(var(--tema-cor), 0.18);
-  border-color: rgba(var(--tema-cor), 0.55);
+  background: rgba(var(--tema-cor), 0.2);
+  border-color: rgba(var(--tema-cor), 0.6);
   color: rgb(var(--tema-cor));
-  box-shadow: 0 0 12px rgba(var(--tema-cor), 0.25);
+  box-shadow: 0 0 14px rgba(var(--tema-cor), 0.28);
 }
-.agenda-seletor-btn-emoji { font-size: 13px; line-height: 1; }
+.agenda-seletor-btn-emoji { font-size: 14px; line-height: 1; }
 
-.agenda-resumo-semana { }
+/* Grade de dias: lista vertical */
+.agenda-resumo-semana { margin-top: 4px; }
 .agenda-resumo-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9.5px;
-  color: var(--text-tertiary);
+  color: var(--text-quaternary);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 700;
   margin-bottom: 12px;
 }
 .agenda-resumo-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-@media (max-width: 600px) {
-  .agenda-resumo-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
-}
-.agenda-cel {
+
+/* Card de um dia */
+.agenda-dia {
+  border-radius: 16px;
+  overflow: hidden;
   background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
-  padding: 8px 6px 10px;
-  min-height: 72px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: border-color 0.2s ease;
 }
-.agenda-cel:hover { transform: translateY(-1px); }
-.agenda-cel.hoje {
+.agenda-dia.hoje {
   border-color: rgba(var(--tema-cor), 0.5);
-  box-shadow: 0 0 14px rgba(var(--tema-cor), 0.18);
+  box-shadow: 0 0 18px rgba(var(--tema-cor), 0.15);
 }
-.agenda-cel.fim-semana { opacity: 0.4; }
-.agenda-cel.vazio { opacity: 0.6; }
-.agenda-cel-header {
+.agenda-dia.fim-semana { opacity: 0.45; }
+.agenda-dia-header {
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1px;
-  margin-bottom: 4px;
+  gap: 10px;
 }
-.agenda-cel-dia-nome {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  color: var(--text-quaternary);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.agenda-dia-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
 }
-.agenda-cel-dia-num {
+.agenda-dia-num {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.agenda-dia.hoje .agenda-dia-num {
+  color: rgb(var(--tema-cor));
+  text-shadow: 0 0 12px rgba(var(--tema-cor), 0.5);
+}
+.agenda-dia-nome {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text-tertiary);
   letter-spacing: -0.01em;
 }
-.agenda-cel.hoje .agenda-cel-dia-nome { color: rgb(var(--tema-cor)); }
-.agenda-cel.hoje .agenda-cel-dia-num {
+.agenda-dia-hoje-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: rgb(var(--tema-cor));
-  text-shadow: 0 0 8px rgba(var(--tema-cor), 0.6);
+  padding: 2px 8px;
+  background: rgba(var(--tema-cor), 0.15);
+  border: 1px solid rgba(var(--tema-cor), 0.4);
+  border-radius: 100px;
 }
-.agenda-cel-vazio {
-  font-size: 13px;
-  text-align: center;
-  opacity: 0.4;
-  margin-top: auto;
+.agenda-dia-livre {
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text-quaternary);
+  font-style: italic;
 }
-.agenda-item {
-  border: 1px solid;
-  border-radius: 8px;
-  padding: 5px 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+
+/* Cards de compromissos dentro de cada dia */
+.agenda-card {
+  padding: 11px 14px;
+  border-left: 3px solid var(--cor-item, rgba(167,139,250,0.5));
   position: relative;
 }
-.agenda-item-topo {
+.agenda-card + .agenda-card {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.agenda-card-linha1 {
   display: flex;
   align-items: flex-start;
-  gap: 4px;
+  gap: 8px;
+  margin-bottom: 6px;
 }
-.agenda-item-emoji {
-  font-size: 11px;
+.agenda-card-emoji {
+  font-size: 16px;
   line-height: 1;
   flex-shrink: 0;
   margin-top: 1px;
 }
-.agenda-item-titulo {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
+.agenda-card-titulo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
-.agenda-item-horario,
-.agenda-item-local {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.02em;
+.agenda-card-detalhe {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.agenda-card-obs {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  color: #FF8FA3;
+  margin-top: 4px;
   font-weight: 600;
 }
-.agenda-item-obs {
-  font-family: 'Inter', sans-serif;
-  font-size: 8px;
-  color: var(--text-quaternary);
-  font-style: italic;
-  line-height: 1.3;
-}
-.agenda-item-badge {
-  font-size: 9px;
-  font-weight: 700;
-  color: rgba(255,223,0,0.9);
+.agenda-card-badge {
   font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255,223,0,0.95);
+  margin-top: 4px;
+  letter-spacing: 0.03em;
 }
-.agenda-timeline-titulo-wrap { display: none; }
 
-/* ============ CALENDÁRIO SEMANAL DE AMBULATÓRIOS ============ */
+/* ============ CALENDÁRIO AMBULATÓRIOS — MOBILE FIRST ============ */
 .ambcal-wrap {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-  margin-bottom: 18px;
-  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 0;
 }
 .ambcal-col {
   background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px;
-  padding: 8px 7px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 60px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  overflow: hidden;
   transition: border-color 0.2s ease;
+  min-width: unset;
 }
 .ambcal-col.hoje {
-  border-color: rgba(var(--tema-cor), 0.45);
-  box-shadow: 0 0 14px rgba(var(--tema-cor), 0.15);
+  border-color: rgba(var(--tema-cor), 0.5);
+  box-shadow: 0 0 16px rgba(var(--tema-cor), 0.15);
 }
-.ambcal-col.fora { opacity: 0.25; pointer-events: none; }
+.ambcal-col.fora { display: none; }
 .ambcal-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  margin-bottom: 4px;
-  padding-bottom: 6px;
+  padding: 10px 14px 8px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 .ambcal-ds {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 700;
-  color: var(--text-quaternary);
-  letter-spacing: 0.08em;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.ambcal-col.hoje .ambcal-ds {
+  color: rgb(var(--tema-cor));
+  text-shadow: 0 0 12px rgba(var(--tema-cor), 0.5);
 }
 .ambcal-dt {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
   color: var(--text-tertiary);
+  font-weight: 500;
 }
-.ambcal-col.hoje .ambcal-ds { color: rgb(var(--tema-cor)); }
-.ambcal-col.hoje .ambcal-dt { color: rgb(var(--tema-cor)); text-shadow: 0 0 8px rgba(var(--tema-cor),0.5); }
+.ambcal-col.hoje .ambcal-dt { color: rgb(var(--tema-cor)); }
 .ambcal-item {
-  background: rgba(56,189,248,0.12);
-  border: 1px solid rgba(56,189,248,0.35);
-  border-radius: 8px;
-  padding: 5px 6px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
+  border-left: 3px solid rgba(56,189,248,0.5);
+}
+.ambcal-item + .ambcal-item {
+  border-top: 1px solid rgba(255,255,255,0.04);
 }
 .ambcal-item.cancelado {
-  background: rgba(255,100,100,0.08);
-  border-color: rgba(255,100,100,0.3);
+  border-left-color: rgba(255,100,100,0.5);
   opacity: 0.7;
 }
 .ambcal-local {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
   color: #7DD3FC;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: -0.01em;
 }
 .ambcal-item.cancelado .ambcal-local { color: #FF8FA3; }
 .ambcal-horario {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
 }
 .ambcal-periodo {
-  font-size: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
   color: var(--text-tertiary);
+  font-weight: 500;
 }
 .ambcal-doutor {
   font-family: 'Inter', sans-serif;
-  font-size: 8px;
-  color: var(--text-tertiary);
-  font-style: italic;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 .ambcal-cancelado-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 7.5px;
+  font-size: 10px;
   font-weight: 800;
   color: #FF8FA3;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-.ambulatorio-lista-titulo {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: var(--text-quaternary);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 700;
-  margin-bottom: 10px;
+  letter-spacing: 0.08em;
   margin-top: 2px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.04);
 }
+.ambulatorio-lista-titulo { display: none; }
+.ambulatorios-lista { display: none; }
 </style>
 </head>
 <body>
@@ -4125,7 +4091,7 @@ body[data-tema="coral"] { --tema-cor: 255, 100, 100; }
   </main>
 
   <footer class="app-footer">
-    <span class="footer-version">v260520.1012</span>
+    <span class="footer-version">v260520.2132</span>
   </footer>
 </div>
 
@@ -5724,15 +5690,26 @@ function migrarEstadoPrescricoes() {
     prescricoesEstado.registros = [];
     if (Array.isArray(prescricoesEstado.historico)) {
       prescricoesEstado.historico.forEach(h => {
-        prescricoesEstado.registros.push({
-          data: h.data,
-          duplaIdx: typeof h.idx === "number" ? h.idx : null,
-          status: "confirmado"
-        });
+        // Só adiciona se não há registro duplicado pra essa data
+        const jaExiste = prescricoesEstado.registros.find(r => r.data === h.data);
+        if (!jaExiste) {
+          prescricoesEstado.registros.push({
+            data: h.data,
+            duplaIdx: typeof h.idx === "number" ? h.idx : (typeof h.duplaIdx === "number" ? h.duplaIdx : null),
+            status: "confirmado"
+          });
+        }
       });
       delete prescricoesEstado.historico;
     }
   }
+  // Garantir sem duplicatas por data (pode ter vindo de estados corrompidos)
+  const vistas = new Set();
+  prescricoesEstado.registros = prescricoesEstado.registros.filter(r => {
+    if (vistas.has(r.data)) return false;
+    vistas.add(r.data);
+    return true;
+  });
 }
 
 const PRESCRICAO_PERIODO_INICIO = "2026-05-20";
@@ -6145,7 +6122,6 @@ function renderAgendaInterno(interno) {
   const resumoGrid = document.getElementById("agenda-resumo-grid");
   if (!saudacaoTitulo || !resumoWrap || !resumoGrid) return;
 
-  // Atualizar saudação
   const hoje = dataHoje();
   const horaNum = new Date().getHours();
   const saudacao = horaNum < 12 ? "Bom dia" : horaNum < 18 ? "Boa tarde" : "Boa noite";
@@ -6155,68 +6131,134 @@ function renderAgendaInterno(interno) {
   if (saudacaoTitulo) saudacaoTitulo.textContent = saudacao + ", " + primNome + "!";
 
   const grupo = GRUPO_A.includes(interno) ? "Grupo A" : GRUPO_B.includes(interno) ? "Grupo B" : "—";
-  if (saudacaoSub) saudacaoSub.textContent = grupo + " — semana de " + formatarDataCurta(getPrimeiroDiaSemana(hoje));
+  // Verificar qual subciclo estamos
+  const atualIdx = SUBCICLOS.findIndex(sc => hoje >= sc.inicio && hoje <= sc.fim);
+  const sc = atualIdx !== -1 ? SUBCICLOS[atualIdx] : null;
+  if (saudacaoSub) saudacaoSub.textContent = grupo + (sc ? " — " + sc.titulo + " • " + formatarDataCurta(sc.inicio) + " a " + formatarDataCurta(sc.fim) : "");
 
   resumoWrap.style.display = "block";
 
-  // Gerar compromissos da semana
-  const comprometidos = gerarCompromissosDaSemana(interno);
+  // Gera todos os dias do subciclo atual (ou subciclo mais próximo)
+  let inicio = sc ? sc.inicio : PRESCRICAO_PERIODO_INICIO;
+  let fim = sc ? sc.fim : PRESCRICAO_PERIODO_FIM;
 
-  const SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
-  const segunda = getPrimeiroDiaSemana(hoje);
+  const SEMANA_NOME = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+  const SEMANA_FULL = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
 
   let html = "";
-  for (let d = 0; d < 7; d++) {
-    const dataStr = somarDias(segunda, d);
-    const ds = diaSemanaNum(dataStr);
-    const isHoje = dataStr === hoje;
+  // Iterar por todos os dias do subciclo
+  const dInicio = new Date(inicio + "T00:00:00");
+  const dFim = new Date(fim + "T00:00:00");
+  let dAtual = new Date(dInicio);
+
+  while (dAtual <= dFim) {
+    const iso = dAtual.toISOString().slice(0, 10);
+    const ds = dAtual.getDay();
+    const isHoje = iso === hoje;
     const eFimSemana = ds === 0 || ds === 6;
 
-    // Compromissos desse dia
-    const do_dia = comprometidos.filter(c => c.iso === dataStr);
+    // Buscar compromissos do dia para esse interno
+    const commits = [];
 
-    let cellClasses = "agenda-cel";
-    if (isHoje) cellClasses += " hoje";
-    if (eFimSemana) cellClasses += " fim-semana";
-    if (do_dia.length === 0) cellClasses += " vazio";
+    // Plantão?
+    const plantao = PLANTOES.find(p => p.data === iso && !p.tpi && Array.isArray(p.nomes) && p.nomes.includes(interno));
+    if (plantao) {
+      const jogo = JOGOS_BRASIL_COPA ? JOGOS_BRASIL_COPA[iso] : null;
+      commits.push({ tipo: "plantao", titulo: "Plantão" + (plantao.evento ? " ⚠ " + plantao.evento : ""), horario: "Plantão 24h", local: "Hospital Alarico", obs: plantao.cobertura || null, badge: jogo ? "🇧🇷 " + jogo.horario + " Brasil x " + jogo.adversario : null });
+    }
 
-    html += '<div class="' + cellClasses + '">';
-    // Cabeçalho do dia
-    html += '<div class="agenda-cel-header">';
-    html += '<span class="agenda-cel-dia-nome">' + SEMANA[ds].toUpperCase() + '</span>';
-    html += '<span class="agenda-cel-dia-num">' + String(parseInt(dataStr.slice(8))).padStart(2, "0") + "/" + dataStr.slice(5, 7) + '</span>';
-    html += '</div>';
-
-    if (do_dia.length === 0) {
-      html += '<div class="agenda-cel-vazio">' + (eFimSemana ? "🛌" : "livre") + '</div>';
-    } else {
-      do_dia.forEach(c => {
-        const cor = COR_TIPO[c.tipo] || COR_TIPO.ambulatorio;
-        html += '<div class="agenda-item" style="background:' + cor.bg + ';border-color:' + cor.borda + '">';
-        html += '<div class="agenda-item-topo">';
-        html += '<span class="agenda-item-emoji">' + cor.emoji + '</span>';
-        html += '<span class="agenda-item-titulo"' + (c.cancelado ? ' style="text-decoration:line-through;opacity:0.55"' : '') + '>' + escapeHtml(c.titulo) + '</span>';
-        html += '</div>';
-        if (c.horario && c.horario !== "—") html += '<div class="agenda-item-horario">' + escapeHtml(c.horario) + '</div>';
-        if (c.local && c.local !== "—") html += '<div class="agenda-item-local">' + escapeHtml(c.local) + '</div>';
-        if (c.obs) html += '<div class="agenda-item-obs">' + escapeHtml(c.obs) + '</div>';
-        if (c.badge) html += '<div class="agenda-item-badge">' + escapeHtml(c.badge) + '</div>';
-        html += '</div>';
+    // Ambulatórios?
+    if (iso >= PRESCRICAO_PERIODO_INICIO && iso <= PRESCRICAO_PERIODO_FIM && !eFimSemana) {
+      const lista = GRUPO_A.includes(interno) ? AMBULATORIOS_A : GRUPO_B.includes(interno) ? AMBULATORIOS_B : [];
+      const DIA_MAPA = { 1: "segunda", 2: "terça", 3: "quarta", 4: "quinta", 5: "sexta" };
+      const nomeDs = DIA_MAPA[ds] || "";
+      lista.forEach(amb => {
+        if (!amb.titulo.toLowerCase().startsWith(nomeDs)) return;
+        const cancelado = ambulatorioCanceladoEm(amb, iso);
+        commits.push({ tipo: "ambulatorio", titulo: amb.titulo, horario: amb.horario, local: amb.local, doutor: amb.doutor, cancelado: !!cancelado, obs: cancelado ? "✕ Cancelado — " + cancelado.motivo : null });
       });
     }
-    html += '</div>';
+
+    // Aulas (terças)?
+    if (ds === 2 && iso <= "2026-06-03" && typeof AULAS !== "undefined" && Array.isArray(AULAS)) {
+      const aula = AULAS.find(a => a.data === iso);
+      if (aula) commits.push({ tipo: "aula", titulo: aula.titulo || "Aula teórica", horario: "18:30 às 20:10", local: "Sala G1-3", doutor: "Dra. Raiza Rodrigues" });
+    }
+
+    // Prescrição prevista?
+    if (!SEM_PRESCRICAO.includes(interno) && iso >= PRESCRICAO_PERIODO_INICIO && iso <= PRESCRICAO_PERIODO_FIM && !eFimSemana) {
+      try {
+        const { previsoes } = calcularPrevisoes();
+        const prev = previsoes ? previsoes[iso] : null;
+        if (prev && (prev.status === "confirmado" || prev.status === "previsto") && typeof prev.duplaIdx === "number") {
+          const dupla = prescricoesEstado.duplas[prev.duplaIdx];
+          if (dupla && dupla.includes(interno)) {
+            commits.push({ tipo: "prescricao", titulo: prev.status === "confirmado" ? "Prescrição no Alarico ✓" : "Possível prescrição", horario: "Manhã", local: "Hospital Alarico", obs: prev.status === "previsto" ? "Previsão — confirmar no dia" : null });
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Prova?
+    if (iso === PROVA_DATA) commits.push({ tipo: "prova", titulo: "Prova N2 — Gineco/Obstetrícia A", horario: "Verificar horário", local: "Verificar local" });
+
+    // Só renderiza dias com compromissos ou o dia de hoje
+    if (commits.length > 0 || isHoje) {
+      const diaNome = SEMANA_FULL[ds];
+      const diaDia = String(dAtual.getDate()).padStart(2, "0");
+      const diaMes = String(dAtual.getMonth() + 1).padStart(2, "0");
+
+      html += '<div class="agenda-dia' + (isHoje ? " hoje" : "") + (eFimSemana ? " fim-semana" : "") + '">';
+      html += '<div class="agenda-dia-header">';
+      html += '<div class="agenda-dia-info">';
+      html += '<span class="agenda-dia-num">' + diaDia + '/' + diaMes + '</span>';
+      html += '<span class="agenda-dia-nome">' + diaNome + '</span>';
+      if (isHoje) html += '<span class="agenda-dia-hoje-badge">hoje</span>';
+      html += '</div>';
+      html += '</div>';
+
+      if (commits.length === 0) {
+        html += '<div class="agenda-dia-livre">Nenhum compromisso</div>';
+      } else {
+        commits.forEach(c => {
+          const cor = COR_TIPO[c.tipo] || COR_TIPO.ambulatorio;
+          html += '<div class="agenda-card" style="--cor-item:' + cor.borda + ';background:' + cor.bg + '">';
+          html += '<div class="agenda-card-linha1">';
+          html += '<span class="agenda-card-emoji">' + cor.emoji + '</span>';
+          html += '<span class="agenda-card-titulo"' + (c.cancelado ? ' style="text-decoration:line-through;opacity:0.5"' : '') + '>' + escapeHtml(c.titulo) + '</span>';
+          html += '</div>';
+          if (c.horario && c.horario !== "—") html += '<div class="agenda-card-detalhe">🕐 ' + escapeHtml(c.horario) + '</div>';
+          if (c.local && c.local !== "—") html += '<div class="agenda-card-detalhe">📍 ' + escapeHtml(c.local) + '</div>';
+          if (c.doutor) html += '<div class="agenda-card-detalhe">👤 ' + escapeHtml(c.doutor) + '</div>';
+          if (c.obs) html += '<div class="agenda-card-obs">' + escapeHtml(c.obs) + '</div>';
+          if (c.badge) html += '<div class="agenda-card-badge">' + escapeHtml(c.badge) + '</div>';
+          html += '</div>';
+        });
+      }
+      html += '</div>';
+    }
+
+    dAtual.setDate(dAtual.getDate() + 1);
   }
+
+  if (!html) html = '<div class="agenda-dia-livre" style="text-align:center;padding:32px">Nenhum compromisso neste subciclo</div>';
   resumoGrid.innerHTML = html;
 
-  // Stagger animation nos cards
-  resumoGrid.querySelectorAll(".agenda-cel").forEach((cel, i) => {
-    cel.style.opacity = "0";
-    cel.style.transform = "translateY(10px)";
+  // Scroll até hoje
+  setTimeout(() => {
+    const hojeEl = resumoGrid.querySelector(".agenda-dia.hoje");
+    if (hojeEl) hojeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 300);
+
+  // Stagger animation
+  resumoGrid.querySelectorAll(".agenda-dia").forEach((el, i) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(12px)";
     setTimeout(() => {
-      cel.style.transition = "opacity 0.35s ease " + (i * 50) + "ms, transform 0.35s cubic-bezier(0.25,0.85,0.4,1.05) " + (i * 50) + "ms";
-      cel.style.opacity = "1";
-      cel.style.transform = "translateY(0)";
-    }, 30);
+      el.style.transition = "opacity 0.35s ease " + (i * 40) + "ms, transform 0.35s cubic-bezier(0.25,0.85,0.4,1.05) " + (i * 40) + "ms";
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    }, 20);
   });
 }
 
@@ -6237,50 +6279,53 @@ function formatarDataCurta(iso) {
   return String(parseInt(iso.slice(8))).padStart(2,"0") + "/" + iso.slice(5,7);
 }
 
-// ============ AMBULATÓRIOS EM CALENDÁRIO SEMANAL ============
 function renderAmbulatoriosCal() {
   const calA = document.getElementById("ambulatorios-cal-A");
   const calB = document.getElementById("ambulatorios-cal-B");
   if (!calA && !calB) return;
 
-  const SEMANA = ["seg", "ter", "qua", "qui", "sex"];
+  const SEMANA_FULL = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
   const DIA_MAPA = { 1: "segunda", 2: "terça", 3: "quarta", 4: "quinta", 5: "sexta" };
-
-  // Pega dias úteis desta semana dentro do subciclo
   const hoje = dataHoje();
   const segunda = getPrimeiroDiaSemana(hoje);
 
   const renderCalGrupo = (lista, container) => {
     if (!container) return;
     let html = "";
-    // Cabeçalho
-    SEMANA.forEach((ds, i) => {
-      const dataStr = somarDias(segunda, i);
+    // Renderizar 5 dias úteis da semana
+    for (let d = 0; d < 5; d++) {
+      const dataStr = somarDias(segunda, d);
+      const ds = diaSemanaNum(dataStr);
       const isHoje = dataStr === hoje;
       const noSub = dataStr >= PRESCRICAO_PERIODO_INICIO && dataStr <= PRESCRICAO_PERIODO_FIM;
+
+      const nomeDia = DIA_MAPA[ds] || "";
+      const ambs = lista.filter(amb => amb.titulo.toLowerCase().startsWith(nomeDia));
+
+      // Mostrar sempre, mas marcar fora do subciclo
       html += '<div class="ambcal-col' + (isHoje ? " hoje" : "") + (noSub ? "" : " fora") + '">';
       html += '<div class="ambcal-header">';
-      html += '<span class="ambcal-ds">' + ds.toUpperCase() + '</span>';
-      html += '<span class="ambcal-dt">' + formatarDataCurta(dataStr) + '</span>';
+      html += '<div class="ambcal-ds">' + SEMANA_FULL[ds] + '</div>';
+      html += '<div class="ambcal-dt">' + formatarDataCurta(dataStr) + '</div>';
+      if (isHoje) html += '<span class="agenda-dia-hoje-badge" style="margin-left:8px">hoje</span>';
       html += '</div>';
-      // Ambulatórios desse dia da semana
-      const numDs = i + 1; // 1=seg,...,5=sex
-      const nomeDia = DIA_MAPA[numDs];
-      lista.forEach(amb => {
-        if (!amb.titulo.toLowerCase().startsWith(nomeDia)) return;
-        const cancelado = noSub ? ambulatorioCanceladoEm(amb, dataStr) : null;
-        html += '<div class="ambcal-item' + (cancelado ? " cancelado" : "") + '">';
-        html += '<div class="ambcal-local">' + escapeHtml(amb.local) + '</div>';
-        html += '<div class="ambcal-horario">' + escapeHtml(amb.horario) + '</div>';
-        if (amb.titulo.includes("manhã") || amb.titulo.includes("tarde")) {
-          html += '<div class="ambcal-periodo">' + (amb.titulo.includes("manhã") ? "☀ manhã" : "🌤 tarde") + '</div>';
-        }
-        html += '<div class="ambcal-doutor">' + escapeHtml(amb.doutor) + '</div>';
-        if (cancelado) html += '<div class="ambcal-cancelado-badge">✕ cancelado</div>';
-        html += '</div>';
-      });
+
+      if (ambs.length === 0) {
+        html += '<div style="padding:10px 14px;font-size:12px;color:var(--text-quaternary);font-style:italic">Sem ambulatório</div>';
+      } else {
+        ambs.forEach(amb => {
+          const cancelado = noSub ? ambulatorioCanceladoEm(amb, dataStr) : null;
+          html += '<div class="ambcal-item' + (cancelado ? " cancelado" : "") + '">';
+          html += '<div class="ambcal-local">📍 ' + escapeHtml(amb.local) + '</div>';
+          html += '<div class="ambcal-horario">🕐 ' + escapeHtml(amb.horario) + '</div>';
+          html += '<div class="ambcal-periodo">' + (amb.titulo.includes("manhã") ? "☀ Manhã" : amb.titulo.includes("tarde") ? "🌤 Tarde" : escapeHtml(amb.titulo)) + '</div>';
+          html += '<div class="ambcal-doutor">👤 ' + escapeHtml(amb.doutor) + '</div>';
+          if (cancelado) html += '<div class="ambcal-cancelado-badge">✕ Cancelado — ' + escapeHtml(cancelado.motivo) + '</div>';
+          html += '</div>';
+        });
+      }
       html += '</div>';
-    });
+    }
     container.innerHTML = html;
   };
 
@@ -6927,66 +6972,21 @@ function maybeMostrarSplashN2() {
 }
 
 // ============ EASTER EGG: 7 cliques no logo G♀ ============
-const FRASES_MEME = [
-  "Bora salvar útero, turma C! 🩺",
-  "Marcelle e Livia, gestantes oficiais da turma 🤰🏻🤰🏻",
-  "Ramon, dá pra trocar o Escuta pelo painel? 😅",
-  "Mais um plantão, menos uma noite de sono 😴",
-  "Edmundo, o único representante masculino que sobrou 🧔",
-  "Dra. Ana Caren, MVP de quartas-feiras 👑",
-  "Curetagem é arte. Arte é curetagem.",
-  "Gineco/Obstetrícia: onde tudo começa 💜",
-  "Quem inventou prescrição em dupla mereceu um prêmio 🏆",
-  "Penúltimo subciclo do internato, alívio chegando 🙏",
-  "Quem nunca esqueceu o estetoscópio? 🤡",
-  "Anotem aí: amniorrexe não é amniossexo.",
-  "TPM = Turma Plantonista Maravilhosa 💅",
-  "Se a N2 fosse uma paciente, ela seria policomórbida.",
-  "Boa noite, futuros médicos. Bom plantão. 🌙"
-];
-
 // ============ CONFETE AO CONFIRMAR PRESCRIÇÃO ============
-function dispararConfete(cor) {
+function dispararConfete() {
   const emojis = ["🎉", "💜", "🩺", "✨", "🎊"];
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 14; i++) {
     const el = document.createElement("div");
     el.className = "confete-piece";
     el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     el.style.left = (20 + Math.random() * 60) + "vw";
-    el.style.top = "30vh";
+    el.style.top = "40vh";
     el.style.setProperty("--vx", (Math.random() * 60 - 30) + "px");
-    el.style.setProperty("--vy", -(80 + Math.random() * 120) + "px");
-    el.style.animationDelay = (Math.random() * 0.4) + "s";
+    el.style.setProperty("--vy", -(60 + Math.random() * 100) + "px");
+    el.style.animationDelay = (Math.random() * 0.3) + "s";
     document.body.appendChild(el);
-    setTimeout(() => el.remove(), 2500);
+    setTimeout(() => el.remove(), 2000);
   }
-}
-
-function setupEasterEggLogo() {
-  // Logo: clique simples mostra frase motivacional aleatória
-  const logo = document.querySelector(".logo-mark");
-  if (!logo) return;
-  logo.style.cursor = "pointer";
-  logo.addEventListener("click", () => {
-    const frase = FRASES_MEME[Math.floor(Math.random() * FRASES_MEME.length)];
-    ativarEasterEgg(frase);
-  });
-}
-
-function ativarEasterEgg(frase) {
-  if (!frase) frase = FRASES_MEME[Math.floor(Math.random() * FRASES_MEME.length)];
-  let ticker = document.getElementById("easter-ticker");
-  if (!ticker) {
-    ticker = document.createElement("div");
-    ticker.id = "easter-ticker";
-    ticker.className = "easter-ticker";
-    document.body.appendChild(ticker);
-  }
-  ticker.textContent = frase;
-  ticker.classList.remove("show");
-  void ticker.offsetWidth;
-  ticker.classList.add("show");
-  setTimeout(() => ticker.classList.remove("show"), 4500);
 }
 
 // ============ RESET CALENDÁRIO DE PRESCRIÇÕES ============
@@ -7022,7 +7022,6 @@ function iniciarApp() {
   setupModalEditarPlantao();
   setupCalPopover();
   setupSubTabs();
-  setupEasterEggLogo();
 
   // Toast contextual de transição de subciclo
   setTimeout(maybeMostrarToastDespedida, 1200);
